@@ -126,3 +126,9 @@ resetBtn.addEventListener("click", function () {
   resetAudio.loop = false;
   resetAudio.play();
 });
+
+// 추가 예정
+// 1. 겹치지 않게 하기
+// 2. 드래그 & 픽스 기능
+// 3. 다크모드
+// 4. 긴 글에은 ellipsis + 모달창으로 읽을 수 있게
