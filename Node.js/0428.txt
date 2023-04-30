@@ -23,3 +23,21 @@ npm --version으로 확인
 
 
 서버란, 클라이언트의 요청에 대한 응답을 하는 역할입니다.
+
+npm이란, node package management
+처음부터 모든 것을 개발하는 것은 매우 비효율적이고, 저번에도 살펴봤듯이 http패키지를 통해 서버구축을 조금 더 편하게 했는데, 이런것들은 다른 개발자가 만들어 놓은 패키지를 사용한 것 이다.
+이런 방대한 패키지를 모아서 설치/관리 해주는 것이 npm.
+npm이란, node package manager / Node.js로 만들어진 패키지를 설치하고 관리해주는 툴이다. 하지만 패키지를 설치하다 보면 매우 많은 패키지들이 서로 의존되는 패키지들이다. 하지만 패키지의 버전마다 기능이 다를수도 있다. 특정 버전의 패키지가 필요할 수도 있기 때문에 의존성과 패키지 버전을 관리해주는 것이 package.json이 필요하다.
+
+0430
+npm -> npm_test로 테스트 폴더를 만들고 cd 이동 뒤, 
+첫번재 단계인 npm init을 입력하면 package.json이 생성되며 npm을 사용할 준비가 끝난다. 이름 버전 설명 위치,  npm에 대한 명령어를 입력할 수 있는 scripts 등이 포함 됨.. script에  "hello": "echo hello"를 넣어서 시험.. echo는 문자열을 출력해주는 명령어 npm run hello를 치면 hello 문자열이 찍혀나온다.
+
+이젠 npm install express를 입력해서 express 패키지를 설치 할 수 있다. package에 dependencies에 설치한 패키지가 표시됨.
+생성된 여러개의 파일 폴더 중 node_modules package-lock은 버전정보를 저장, node_modules 파일은 해당 express를 설치하면서 모든 의존성있는 패키지들을 관리해줌.
+
+ npm install -D nodemon를 입력하면 devDependencies 아래에 nodemon이 생김. -D 옵션은 개발 환경에서만 패키지를 사용하겠다는 의미이다.
+
+ npm install -g express-generator 에서 -g옵션은 글로벌 옵션인데, 이닛하고 패키지를 설치한 뒤, 모든 패키지에 공통적으로 사용될 패키지를 한번에 설치해주기 위해 사용. express-generator를 앞으로 모든 패키지에서 사용가능하게 된다.
+
+ express 빠르고 간편한 웹 프레임워크. 프레임워크란 프래그램을 만들기 위한 기본 틀을 제공해주고 사용자가 입맛에 맞게 사용함. 체계적인 코드관리와 유지보수가 용이 express-generator는 express의 기본구조를 만들어줌.
