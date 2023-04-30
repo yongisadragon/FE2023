@@ -27,3 +27,17 @@ class Component {
 }
 
 export default Component;
+
+01 == 1; // true, 문자열 '01'이 숫자 1로 변환된 후 비교가 진행됩니다.
+
+10 == "10"; // true
+
+false == 0; // true 다른 타입 다른 값
+
+false == ""; // true
+
+0 == ""; // true
+
+false === 0; //false
+
+0 == ""; //false

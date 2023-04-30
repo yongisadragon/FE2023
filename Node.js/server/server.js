@@ -1,13 +1,30 @@
 //서버란, 클라이언트의 요청에 대한 응답을 하는 역할입니다.
 const http = require("http"); //http패키지를 사용하겠다는 의미. require은 해당패키지를 불러와 사용할 수 있게함.
 
-http
+http //서버를 쉽게 구축할 수 있는 패키지
   .createServer((req, res) => {
+    //서버를 생성하고 콜백으로 req,res를 받아서 요청과 응답을 진행하는 함수
     //요청과 응답에 대한 매개변수
-    res.writeHead(200, { "Content-dType": "text/html" }); //헤더값을 통해 숫자를 통해 상태코드(200,성공)를 보냄.
-    res.end("<p>Hello World</p>"); //응답받을 코드 설정
+    //res.writeHead(200, { "Content-dType": "text/html" }); //헤더값을 통해 숫자를 통해 상태코드(200,성공)를 보냄.
+    //res.end("<p>Hello World</p>"); //응답받을 코드 설정
+    if (req.url === "/") {
+      //url, 요청에 맞게 분기처리 하는것을 라우팅이라고하고, 라우팅하는 것을 나중에는 express로 쉽게 해 줄 수 있다.
+      res.writeHead(200); //정상(200)이라면
+      res.end("main url"); //포스트맨 http://localhost:3000시 출력
+    } else if (req.url === "/upload") {
+      res.writeHead(200); //포스트맨 http://localhost:3000/upload시 출력
+      res.end("upload url");
+    } else if (req.url == "/delete") {
+      res.writeHead(200);
+      res.end("delete url");
+    } else {
+      //위의 분기처리 뒤의 요청한 라우팅에 없는 url이 입력된다면, not found 출력 . 해당 요청이 없다(404)
+      res.writeHead(404);
+      res.end("not found!");
+    }
   })
   .listen(3000, () => {
+    //서버를 대기시켜줌
     console.log("3000번 포트 서버 접속완료");
   }); //서버를 실행할 코드
 
