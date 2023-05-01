@@ -41,3 +41,18 @@ npm -> npm_test로 테스트 폴더를 만들고 cd 이동 뒤,
  npm install -g express-generator 에서 -g옵션은 글로벌 옵션인데, 이닛하고 패키지를 설치한 뒤, 모든 패키지에 공통적으로 사용될 패키지를 한번에 설치해주기 위해 사용. express-generator를 앞으로 모든 패키지에서 사용가능하게 된다.
 
  express 빠르고 간편한 웹 프레임워크. 프레임워크란 프래그램을 만들기 위한 기본 틀을 제공해주고 사용자가 입맛에 맞게 사용함. 체계적인 코드관리와 유지보수가 용이 express-generator는 express의 기본구조를 만들어줌.
+
+ --본격 시작
+ 이제 다시 상위 NODE.JS 폴더로 와서 
+ npm install -g express express-generator nodemon 입력 후
+ express --ejs first-project를 해줌. ejs가 jade보다 html과 더 유사하다.
+npm start 명령어를 통해 서버를 실행시킴.
+브라우저에서 http://localhost:3000/를 입력해서 express가 나오면 제대로 작동.
+views-index.ejs로 가보면 html코드가 있다.
+여기서 업데이트가 발생하면 Ctrl+c를 통해 서버를 꺼준 뒤, 다시 npm start를 입력해서 서버를 연결해준 다음, 브라우저를 새로고침 하면 된다.
+변경사항이 생길때마다 껐다 키는것을 해결해주기 위해 nodemon패키지를 활용한다.
+컨트롤 c로 꺼준뒤, node ./bin/www 를 입력해준다. 그 이후엔 변경사항이 생기고 난뒤엔, 브라우저만 새로고침만 해주면 된다. 중요한 패키지이다.
+
+라우팅
+라우팅이란 요청에 따라 처리 해주는 것, 서버는 이러한 요청에 따라 분기처리를 해준다.
+라우팅을 express에선 더 효율적인 방법으로 처리가 가능하다.
