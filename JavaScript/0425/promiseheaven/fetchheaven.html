@@ -20,7 +20,7 @@
         return new Promise((resolve, reject) => {
           fetch('users.json')
             .then((data) => {
-              return data.json()//json을 통해 파싱된 값도 promise
+              return data.json() //json을 통해 파싱된 값도 promise
             })
             .then((response) => {
               const result = response.user.find((item) => {

@@ -21,6 +21,8 @@ class VendingMachineEvents {
     //함수안에서 템플릿으로 생성, 하단 장바구니(get-list)에 생성되는 li 생성해줌.
 
     const stagedItem = document.createElement("li"); //이미지 경로, 아이템 이름 바꿔주면 될 듯 하다.
+    stagedItem.dataset.item = target.dataset.item;
+    stagedItem.dataset.price = target.dataset.price;
     stagedItem.innerHTML = `
     <img src="./img/${target.dataset.img}" alt="">
     ${target.dataset.item}
@@ -92,7 +94,7 @@ class VendingMachineEvents {
      * 3) 아이템이 장바구니에 들어감
      * 4) 아이템의 count가 -1 됨.(data-count 참고) count가 0이되면 품절 표시 함.
      */
-    this.btnsCola = document.querySelectorAll(".section1 .btn-cola"); //콜라 버튼들
+    this.btnsCola = document.querySelectorAll(".section1 .btn-cola"); //콜라 버튼들 선택
 
     this.btnsCola.forEach((item) => {
       //item은 콜라 버튼 하나하나
@@ -101,26 +103,115 @@ class VendingMachineEvents {
         const balanceVal = parseInt(
           this.balance.textContent.replaceAll(",", "")
         );
-        const targetElPrice = parseInt(event.currentTarget.dataset.price); //리스너 달려있는 놈, dataset은 해당요소 data에 접근하는 메서드
-        console.log(targetElPrice);
+        const targetEl = event.currentTarget; //target은 사용자가 마우스로 선택하는 요소 그 자체, currentTarget은 이벤트 리스너가 달린 요소, 여기에선 item -> this.btnsCola의 영역이다.
+        // console.log(targetEl);
+        const targetElPrice = parseInt(targetEl.dataset.price); //리스너 달려있는 놈, dataset은 해당요소 data에 접근하는 메서드
+        const stagedListItem = this.stagedList.querySelectorAll("li");
+        let isStaged = false; //이미 장바구니에 있는가? t/f 알기위해 더미처럼 넣어준 불린 값
+
         if (balanceVal >= targetElPrice) {
           //잔액(기계돈)이 아이템 가격보다 같거나 클 경우
           this.balance.textContent =
             new Intl.NumberFormat().format(balanceVal - targetElPrice) + "원";
-          //장바구니 콜라 생성
 
-          this.stagedItemGenerator(event.currentTarget); //왜 커렌트?
+          for (const item of stagedListItem) {
+            //중복됐을 때 카운트 쌓이는 것을 해결해주는 for문
+            //같은 제품을 넣었을 때, li가 개별로 추가되지 않고 카운트되는 숫자가 +1되도록
+            //클릭한 콜라의 이름과 장바구니에 있던 콜라의 이름이 같은지 비교
+            if (targetEl.dataset.item === item.dataset.item) {
+              //이미 장바구니에 콜라가 있따면 카운트만 + 1
+              item.querySelector("strong").firstChild.textContent =
+                parseInt(item.querySelector("strong").firstChild.textContent) +
+                1;
 
-          for (const itme of this.stagedList) {
+              isStaged = true;
+              break;
+            }
           }
 
-          this.stagedList.forEach((item) => {}); //forEach는 자기 콜백함수에 집어넣는데, break나 return 이외엔 그만 돌릴 방법이 없음.
+          if (!isStaged) {
+            //처음 선택했을 경우만 장바구니에 콜라를 생성합니다.
+            //장바구니 콜라 생성
+            this.stagedItemGenerator(event.currentTarget); //장바구니 콜라 생성 코드
+          }
+
+          //콜라 개수 차감(재고 업데이트)
+          targetEl.dataset.count--;
+
+          if (!parseInt(targetEl.dataset.count)) {
+            //품절 처리를 위한 조건문
+            //parseInt(targetEl.dataset.count) === 0 과 같음
+            targetEl.insertAdjacentHTML(
+              //교안 참고
+              "beforeEnd",
+              `
+            <strong class="soldout">
+            <span>품절</span>
+            </strong>
+            `
+            );
+            targetEl.disabled = "disabled";
+          }
+          //this.stagedList.forEach((item) => {}); //forEach는 자기 콜백함수에 집어넣는데, break나 return 이외엔 그만 돌릴 방법이 없음.
           //for of로 조건을 만들어서 정지 할 수 있음.
         } else {
           // balanceVal < targetElPrice 경우
           alert("금액이 부족합니당.🥹");
         }
       });
+    });
+
+    /**
+     * 4. 획득 버튼 기능
+     * 1) 장바구니에 있는 음료수 목록이 획득한 음료 목록으로 이동합니다.
+     * 2) 획득한 음료의 모든 금액을 합하여 총 금액을 업데이트 합니다.
+     */
+    this.btnGet.addEventListener("click", () => {
+      const itemStagedList = this.stagedList.querySelectorAll("li"); //왼쪽 list의 li
+      const itemGetList = this.getList.querySelectorAll("li"); //오른쪽 list의 li
+      let totalPrice = 0; //총금액 더해주기 위해 초깃값 숫자형(0)으로 설정
+
+      // 175-193과정: 왼쪽 list와 오른쪽 list를 순회하는데, 초기 획득 값(isGet)을 false로 설정해둔 뒤 진행해야 한다. let isGet = false;은 각 색상별 음료수가 왼쪽에서 오른쪽으로 넘어갔을 때, if(!isGet)을 거치도록 해주는 초깃값 세팅이다. 또, isGet =false가 for문 바깥에 있으면, 각 음료가 for문을 돌때에 true상태이기 때문에 if(!isGet)이하 코드블럭이 실행되지 않아 append되지 않는다.
+      for (const itemStaged of itemStagedList) {
+        let isGet = false; //이미 획득했는가?, 각 아이템마다 비교해줘야함.
+        for (const itemGet of itemGetList) {
+          //장바구니의 콜라가 이미 획득한 목록에 있다면
+          if (itemStaged.dataset.item === itemGet.dataset.item) {
+            itemGet.querySelector("strong").firstChild.textContent =
+              parseInt(itemGet.querySelector("strong").firstChild.textContent) +
+              parseInt(
+                itemStaged.querySelector("strong").firstChild.textContent
+              );
+
+            isGet = true;
+            break;
+          }
+        }
+        if (!isGet) {
+          //최초로 list에 li 추가 해줄때에만 적용이 된다.
+          this.getList.append(itemStaged);
+        }
+      }
+
+      //장바구니 목록 초기화
+      this.stagedList.innerHTML = null;
+
+      //획득한 음료 리스트를 순회하면서 총금액 계산
+      this.getList.querySelectorAll("li").forEach((itemGet) => {
+        //최신화된 노드리스트를 순회해야함.
+        // this.txtTotal.textContent =
+        // parseInt(this.txtTotal.textContent) +
+        // parseInt(itemGet.dataset.price) *
+        //   parseInt(itemGet.querySelector("strong").textContent);
+
+        totalPrice +=
+          parseInt(itemGet.dataset.price) *
+          parseInt(itemGet.querySelector("strong").firstChild.textContent); //strong이 a11된 span까지 포함하고 있어서. 사실 firstChild없어도 parseInt('1개')는 1로 출력된다.
+      });
+      // console.log(totalPrice);
+      this.txtTotal.textContent = `총금액 : ${new Intl.NumberFormat().format(
+        totalPrice
+      )} 원`;
     });
   }
 }
