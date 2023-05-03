@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>title name</title>
+  <style>
+    path {
+      fill: none;
+      /* 선의 색상 */
+      stroke: rgb(255, 255, 255);
+      stroke-width: 7px;
+      /* 접합지점 라인 둥글게 */
+      stroke-linejoin: round;
+      /* getTotalLength로 구한 길이 입력 */
+      /* stroke-dasharray: 2507 2507; */
+      animation: line 7s ease infinite;
+    }
+
+    svg {
+      /* 화면 정중앙 배치 */
+      position: fixed;
+      width: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+
+    body {
+      margin: 0;
+      /* 임의 스크롤 생성 위해 높잇값 */
+      height: 2000px;
+      background: linear-gradient(to bottom, rgb(0, 255, 123), royalblue);
+
+    }
+
+    /* @keyframes line {
+      from {
+        stroke-dashoffset: 2507;
+
+      }
+
+      to {
+        stroke-dashoffset: 0;
+
+      }
+    } */
+
+    .btn-dog {
+      position: fixed;
+      top: 85%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      opacity: 0;
+    }
+  </style>
+
+
+</head>
+
+<body>
+
+  <svg height='400' viewBox="0 0 689 438" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path id="path"
+      d="M20 45.5491C42.5707 196.575 112.568 365.276 165.044 286.153C242.377 169.553 255.573 68.9069 193.165 119.211C76.9818 212.862 126.273 386.396 193.165 275.789C264.578 157.708 292.328 210.271 295.288 216.193C299.729 225.077 295.658 249.878 269.388 245.436C243.117 240.994 242.747 212.862 248.667 196.575C254.587 180.288 288.258 108.847 321.559 134.758C354.86 160.669 386.311 108.106 427.013 119.211C467.714 130.316 450.693 135.868 434.783 141.051C418.872 146.233 458.463 148.824 446.623 157.708C434.783 166.592 398.522 168.119 398.522 198.796C398.522 231.74 437.373 232.85 446.623 208.79C457.581 180.288 410.362 159.559 380.391 196.575C350.42 233.591 337.84 212.862 316.379 201.387C294.918 189.912 324.149 233.591 306.389 251.729C288.628 269.866 223.506 283.562 219.066 309.103C214.626 334.644 258.657 326.871 248.667 340.567C238.677 354.263 257.547 433.107 294.918 419.041C332.29 404.975 425.532 359.912 412.952 317.714C400.372 275.516 367.071 270.333 343.02 282.178C318.969 294.024 301.579 326.84 328.96 357.965C356.34 389.089 370.401 372.031 390.751 385.356C411.102 398.682 362.261 426.815 380.391 429.776C398.522 432.737 442.183 405.715 440.703 385.356C439.223 364.998 471.784 376.102 476.964 349.081C482.144 322.059 491.765 299.849 466.234 290.225C440.703 280.601 413.322 268.386 405.922 251.729C398.522 235.071 464.384 280.601 476.964 266.165C489.544 251.729 502.495 211.381 487.324 201.387C472.154 191.392 455.503 160.299 466.234 150.675C476.964 141.051 454.393 87.3773 380.391 105.515C306.389 123.653 383.351 92.5595 364.481 88.1176C345.61 83.6757 348.2 102.184 321.559 97.3716C294.918 92.5595 261.566 84.3647 248.667 113.289C237.937 137.349 332.29 60.3555 497.315 18.8976C601.845 -7.36263 663.45 25.8072 669 35.9249"
+      stroke="black" />
+  </svg>
+  <button class="btn-dog" type="button">Learn about dogs</button>
+
+  <script>
+    // path 선택하기
+    const path = document.querySelector('#path')
+
+    //path 전체 길이 구하기
+    const pathLength = path.getTotalLength();
+    console.log(path, pathLength);//path의 전체길이를 구해주는 메서드
+    // stroke-dasharray: 2507 2507; 형태로 css 설정하기
+    path.style.strokeDasharray = pathLength + ' ' + pathLength;
+    // stroke-dashoffset: 2507; 형태로 css 설정하기
+    path.style.strokeDashoffset = pathLength;
+
+    function scrollHandler() {
+      //스크롤 위치를 알아내야함니다. 뷰포트의 몇 %차지하는지 이해해야 합니다.
+      const scrollTop = document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight;
+      const clientHeight = document.documentElement.clientHeight;
+
+      //0~1사이를 비율로 왔다갔다함
+      const scrollPercentage = scrollTop / (scrollHeight - clientHeight);
+      console.log(scrollPercentage);
+
+      const btnDog = document.querySelector('.btn-dog')
+      //0~pathLength 사이를 왔다갔다함, 내릴수록 값이 커짐
+      const drawLength = pathLength * scrollPercentage;
+      //이게 에니메이션 만들어주는 애
+      path.style.strokeDashoffset = pathLength - drawLength;
+
+      btnDog.style.opacity = scrollPercentage;
+      console.log(drawLength);
+    }
+
+    window.addEventListener('scroll', scrollHandler);
+  </script>
+
+</body>
+
+</html>

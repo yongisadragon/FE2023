@@ -27,6 +27,9 @@ class ColaGenerator {
   }
 
   colaFactory(data) {
+    //메모리 효율적! 가짜하나만들고 나중에 진짜에 줌
+    //가상돔에 안 넣고 바로 참돔(참의 돔)에 넣으면 메모리를 다 잡아먹음. (처음 페이지 로드 할 때)frag는 메모리 안잡아먹음:로드할때 한번에 다하지않기때문에. *정정: 미니돔이라고함.
+    //DocumentFragment는 활성화된 DOM의 일부가 아닙니다. 처음에 이야기한 것처럼 DocumentFragment는 DOM에 반영하기 전까지는 메모리상에서만 존재합니다. 즉 DocumentFragment에 변경이 일어나도 DOM의 구조에는 변경이 일어나지 않기 때문에 브라우저가 화면을 다시 랜더링 하지 않습니다. 이 말은 Reflow나 Repaint가 일어나지 않는다는 말과도 같습니다.
     const docFrag = document.createDocumentFragment(); //메모리상의 가상돔에 어펜드하자
     //loadData를 통해서 온 json객체
     data.forEach((el) => {
