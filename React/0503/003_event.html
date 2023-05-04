@@ -91,6 +91,7 @@
       const clientHeight = document.documentElement.clientHeight;
 
       //0~1사이를 비율로 왔다갔다함
+      //scrollHeight - clientHeight = 최대 스크롤 가능 값. 즉 고정값으로 나오고 scrollTop은 스크롤 bar가 내려감에 따라 생기는 위 여백 공간임. 즉 0부터 시작해서 최대 스크롤 값을 향해서 가는 가변값. 그러므로 둘을 나눈 것은 처음 0/최댓값 =0 부터 시작해서 최댓값/최댓값=1 을 향해서 감. 0~100%의 비율로 나타낸 것이 scrollPercentage인 것이다.
       const scrollPercentage = scrollTop / (scrollHeight - clientHeight);
       console.log(scrollPercentage);
 
