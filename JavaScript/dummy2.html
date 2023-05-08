@@ -6,15 +6,55 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>title name</title>
+  <!-- <style>
+    body * {
+      margin: 10px;
+      border: 1px solid rgb(255, 2, 74);
+    }
+  </style> -->
 </head>
 
 <body>
-  <h1></h1>
-  <script>
-    const h1 = document.querySelector('h1')
-    h1.appendChild(document.nodeValue('hello'));
-    // h1.textContent = 'hello';
-  </script>
+
+  <div class="DIV1">
+    DIV1
+    <div class="DIV2">
+      DIV2
+      <div class="DIV3">DIV3</div>
+    </div>
+    <script>
+      //이벤트 위임 전, 각 인풋 박스의 요소에 클릭 이벤트 리스너를 추가
+
+      //이벤트 위임 후
+      // var itemList = document.querySelector('.itemList');
+      // itemList.addEventListener('click', function (event) {
+      //   alert('clicked');
+      // });
+
+      // 새 리스트 아이템을 추가하는 코드,  새 리스트를 추가할 때에는, li가 2개가 있는 시점 다음이기 때문에, 새로 생기는 li들은 이벤트가 적용되지 않는다.
+      var itemList = document.querySelector('.itemList');
+
+      var li = document.createElement('li');
+      var input = document.createElement('input');
+      var label = document.createElement('label');
+      var labelText = document.createTextNode('이벤트 위임 학습');
+
+      input.setAttribute('type', 'checkbox');
+      input.setAttribute('id', 'item3');
+      label.setAttribute('for', 'item3');
+      label.appendChild(labelText);
+      li.appendChild(input);
+      li.appendChild(label);
+      itemList.appendChild(li);
+
+
+      var inputs = document.querySelectorAll('input');
+      inputs.forEach(function (input) {
+        input.addEventListener('click', function (event) {
+          alert('clicked');
+        });
+      });
+    </script>
 </body>
 
 </html>

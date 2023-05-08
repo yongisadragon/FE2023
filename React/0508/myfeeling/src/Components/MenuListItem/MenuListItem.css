@@ -1,0 +1,13 @@
+.btn-item {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+}
+
+.btn-item:hover {
+  background-color: rgb(84, 198, 255);
+  transition: 0.4s;
+}
