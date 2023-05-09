@@ -10,10 +10,11 @@ function App() {
 
   return (
     <div>
-      {/* 메뉴리스트로 현재기분과 기분을 바꿀 수 있는 메서드를 보낸다. */}
+      {/* 메뉴리스트로 현재기분과 기분을 바꿀 수 있는 메서드를 보낸다. 프로퍼티 형식으로(props)자식에게. 따라서, 부모 컴포넌트에서 <DisplayMood /> 컴포넌트를 호출할 때, "currentMood" 값이 "mood" 프로퍼티로 전달*/}
       <MenuList mood={currentMood} onItemClick={setCurrentMood} />
-      {/* 디스플레이무드로 현재기분을 보낸다. */}
+      {/* 디스플레이무드로 현재기분을  보낸다. */}
       <DisplayMood mood={currentMood} />
+
       {/* <ButtonList
         good="기분이: 좋아요!😊"
         sad="기분이: 슬퍼요!😊"
@@ -24,3 +25,4 @@ function App() {
   );
 }
 export default App;
+

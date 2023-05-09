@@ -6,55 +6,36 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>title name</title>
-  <!-- <style>
-    body * {
-      margin: 10px;
-      border: 1px solid rgb(255, 2, 74);
-    }
-  </style> -->
 </head>
 
 <body>
+  <div id="root"></div>
+  <script>
+    const div = document.createElement('div')
+    const h1 = document.createElement('h1')
+    const sect = document.createElement('section')
+    const h2 = document.createElement('h2')
+    const img = document.createElement('img')
+    const p = document.createElement('p')
+    const root = document.getElementById('root')
 
-  <div class="DIV1">
-    DIV1
-    <div class="DIV2">
-      DIV2
-      <div class="DIV3">DIV3</div>
-    </div>
-    <script>
-      //이벤트 위임 전, 각 인풋 박스의 요소에 클릭 이벤트 리스너를 추가
-
-      //이벤트 위임 후
-      // var itemList = document.querySelector('.itemList');
-      // itemList.addEventListener('click', function (event) {
-      //   alert('clicked');
-      // });
-
-      // 새 리스트 아이템을 추가하는 코드,  새 리스트를 추가할 때에는, li가 2개가 있는 시점 다음이기 때문에, 새로 생기는 li들은 이벤트가 적용되지 않는다.
-      var itemList = document.querySelector('.itemList');
-
-      var li = document.createElement('li');
-      var input = document.createElement('input');
-      var label = document.createElement('label');
-      var labelText = document.createTextNode('이벤트 위임 학습');
-
-      input.setAttribute('type', 'checkbox');
-      input.setAttribute('id', 'item3');
-      label.setAttribute('for', 'item3');
-      label.appendChild(labelText);
-      li.appendChild(input);
-      li.appendChild(label);
-      itemList.appendChild(li);
+    div.className = 'container'
+    h1.className = 'ir'
+    h2.className = 'section-title'
+    img.className = 'section-img'
+    p.className = 'section-contents'
 
 
-      var inputs = document.querySelectorAll('input');
-      inputs.forEach(function (input) {
-        input.addEventListener('click', function (event) {
-          alert('clicked');
-        });
-      });
-    </script>
+    h1.textContent = '테스트 페이지'
+    h2.textContent = '섹션제목'
+    img.setAttribute('src', 'img.jpg')
+    img.setAttribute('alt', '섹션이미지')
+    p.textContent = '내용'
+
+    div.append(h1, sect)
+    sect.append(h2, img, p)
+    root.appendChild(div)
+  </script>
 </body>
 
 </html>
