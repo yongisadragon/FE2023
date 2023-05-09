@@ -1,15 +1,15 @@
-const min = document.getElementById("min");
-const sec = document.getElementById("sec");
+let min = document.getElementById("min").value;
+let sec = document.getElementById("sec").value;
 const btnStart = document.querySelector(".btn-start");
 const btnReset = document.querySelector(".btn-reset");
-let timer;
 
 btnStart.addEventListener("click", startTime);
+btnReset.addEventListener("click", resetTime);
 
 function startTime() {
-  if (min.value === "") min = 0;
-  if (sec.value === "") sec = 0;
-  timer = setInterval(countTime, 1000);
+  if (min === "") min = 0;
+  if (sec === "") sec = 0;
+  setInterval(countTime, 1000);
 }
 
 function countTime() {
@@ -18,7 +18,10 @@ function countTime() {
   } else if (min !== 0) {
     min--;
     sec = 59;
-  } else {
-    clearTimeout(timer, "타이머 종료");
   }
+}
+
+function resetTime() {
+  min = "";
+  sec = "";
 }
