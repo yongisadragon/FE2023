@@ -71,6 +71,7 @@ async function newsFeed() {
        </ul>
       </nav>`
   );
+
   // console.log(newsList.join(""));
   container.innerHTML = newsList.join(""); // join을 통해 원소를 한줄의 문자열로 합칩니다. //배열을 문자열로 합쳐주는 join 아무런값 없으면 쉼표로 나누어지기 때문에 ''를 넣어야함
 }
