@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Detail from "./Components/Detail";
-import Question from "./Components/Question";
-import Review from "./Components/Review";
+import Detail from "./detail";
+import Question from "./question";
+import Review from "./review";
 
 const ContentsContainer = ({ listName }) => {
   if (listName === "detail") {
@@ -13,9 +13,9 @@ const ContentsContainer = ({ listName }) => {
   }
 };
 
-export default function NavBar() {
+function NavBar() {
   const [listName, setListName] = useState("detail");
-  const checkId = (e) => {
+  const setId = (e) => {
     setListName(e.target.id);
   };
 
@@ -28,23 +28,23 @@ export default function NavBar() {
             style={
               listName === "detail" ? { color: "red" } : { color: "black" }
             }
-            onClick={checkId}
+            onClick={setId}
           >
             상세정보
           </li>
           <li
-            id="detail"
+            id="qa"
+            onClick={setId}
             style={listName === "qa" ? { color: "red" } : { color: "black" }}
-            onClick={checkId}
           >
             Q&A
           </li>
           <li
-            id="detail"
+            id="review"
+            onClick={setId}
             style={
               listName === "review" ? { color: "red" } : { color: "black" }
             }
-            onClick={checkId}
           >
             Review
           </li>
@@ -54,3 +54,5 @@ export default function NavBar() {
     </>
   );
 }
+
+export default NavBar;
