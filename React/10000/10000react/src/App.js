@@ -7,15 +7,15 @@ import InputContents from "./Components/inputcontents/InputContents";
 
 function App() {
   // 모달을 껐다 켰다하려면 상태를 위한 저장공간이 필요..
-  const [modalshow, setModalShow] = useState(false);
+  // const [modalshow, setModalShow] = useState(false);
 
-  function modalClose() {
-    setModalShow(false);
-  }
+  // function modalClose() {
+  //   setModalShow(false);
+  // }
 
-  function modalOpen() {
-    setModalShow(true);
-  }
+  // function modalOpen() {
+  //   setModalShow(true);
+  // }
 
   return (
     <div id="app">

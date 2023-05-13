@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import licat from "../../img/licat.png";
 
 export default function InputContents() {
   const [job, setJob] = useState("");
@@ -6,6 +7,40 @@ export default function InputContents() {
   const [day, setDay] = useState("");
 
   const [resultjob, setResuljob] = useState("");
+
+  const [modalshow, setModalShow] = useState(false);
+
+  function modalClose() {
+    setModalShow(false);
+  }
+
+  function modalOpen() {
+    setModalShow(true);
+  }
+
+  const handleCopyToClipboard = async () => {
+    const url = window.location.href;
+    try {
+      await navigator.clipboard.writeText(url);
+      alert("복사가 성공했어요! 웅.");
+    } catch (err) {
+      alert("복사가 실패했어요: ", err);
+    }
+  };
+
+  // 위 코드를 then/catch로
+  // function handleCopyToClipboard() {
+  //   const url = window.location.href;
+
+  //   navigator.clipboard
+  //     .writeText(url)
+  //     .then(() => {
+  //       alert("URL이 클립보드에 복사되었습니다!");
+  //     })
+  //     .catch((error) => {
+  //       alert("클립보드 복사에 실패했습니다:", error);
+  //     });
+  // }
 
   function resetForm() {
     setJob("");
@@ -78,9 +113,25 @@ export default function InputContents() {
             대략 <strong>{day}</strong> 일 이상 훈련하셔야 합니다! :&#41;
           </p>
 
-          <button>훈련하러 가기</button>
-          <button>공유하기</button>
+          <button type="button" onClick={modalOpen}>
+            훈련하러 가기
+          </button>
+          <button type="button" onClick={() => handleCopyToClipboard()}>
+            공유하기
+          </button>
         </section>
+      )}
+      {modalshow && (
+        <article onClick={modalClose} id="modal">
+          <div className=" modal-wrap">
+            <h2>화이팅!😊🔥</h2>
+            <h3>당신의 꿈을 응원합니다!</h3>
+            <img src={licat} alt="응원하는 라이캣" />
+            <button className="btn-close" type="button">
+              종료하고 진짜 훈련하러 가기 GO! GO!
+            </button>
+          </div>
+        </article>
       )}
     </>
   );
