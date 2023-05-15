@@ -42,7 +42,7 @@ const Card = (props) => {
     <CardDiv className={props.className}>
       <h3>{props.value}</h3>
       <hr />
-      {/* App함수 안에서 Card렌더 태그에 추가된 childre가져오기 */}
+      {/* App함수 안에서 Card렌더 태그에 추가된 하위 childre가져오기, 각각의 경우 SettingCard, ShareCard */}
       <div>{props.children}</div>
     </CardDiv>
   );

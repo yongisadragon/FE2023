@@ -5,9 +5,11 @@ import {
   Link,
   Outlet,
   useNavigate,
+  useParams,
 } from "react-router-dom";
 
 function App() {
+  let { id } = useParams();
   return (
     <BrowserRouter>
       <Link to="/"> Home Page </Link>
@@ -16,11 +18,10 @@ function App() {
       <br />
       <Link to="/users"> User Page </Link>
       <br />
-      <Link to="/products/1"> Product Notice Page_1 </Link>
-      <br />
-      <Link to="/products/2"> Product Notice Page_2 </Link>
-      <br />
-      <Link to="/products/3"> Product Notice Page_3 </Link>
+      <Link to="/products/1/notice"> Product Notice Page </Link>
+      <Link to="/products/2/notice"> Product Notice Page </Link>
+      <Link to="/products/3/notice"> Product Notice Page </Link>
+
       <br />
       {/* 라우트를 감싸줍니다. */}
       <Routes>
@@ -34,10 +35,7 @@ function App() {
           <Route path="notice/" element={<UsersNotice />} />
           <Route path="question/" element={<UsersQuestion />} />
         </Route>
-
-        <Route path="/products/:id" element={<Outlet />}>
-          <Route path="" element={<Products />} />
-        </Route>
+        <Route path="/products/:id/notice" element={<Products />} id={id} />
       </Routes>
     </BrowserRouter>
   );
@@ -130,11 +128,28 @@ function UsersQuestion() {
 
 function Products() {
   let navigate = useNavigate();
+  let { id } = useParams();
+  let component;
+  switch (id) {
+    case "1":
+      component = <Product1Notice />;
+      break;
+    case "2":
+      component = <Product2Notice />;
+      break;
+    case "3":
+      component = <Product3Notice />;
+      break;
+  }
+  return component;
+}
 
+function Product1Notice() {
+  let navigate = useNavigate();
   return (
     <>
       <h1>Products</h1>
-      <p>여기는 프로덕트 메인 페이지 입니다.</p>
+      <p>여기는 프로덕트 노티스1 입니다.</p>
       <button
         onClick={() => {
           navigate(-1);
@@ -142,30 +157,59 @@ function Products() {
       >
         뒤로가기
       </button>
-    </>
-  );
-}
-function Product1Notice() {
-  return (
-    <>
-      <h1>Products</h1>
-      <p>여기는 프로덕트 노티스1 입니다.</p>
+      <button
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        홈으로
+      </button>
     </>
   );
 }
 function Product2Notice() {
+  let navigate = useNavigate();
   return (
     <>
-      <h1>Cart</h1>
+      <h1>Products</h1>
       <p>여기는 프로덕트 노티스2 입니다.</p>
+      <button
+        onClick={() => {
+          navigate(-1);
+        }}
+      >
+        뒤로가기
+      </button>
+      <button
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        홈으로
+      </button>
     </>
   );
 }
 function Product3Notice() {
+  let navigate = useNavigate();
   return (
     <>
-      <h1>Cart</h1>
+      <h1>Products</h1>
       <p>여기는 프로덕트 노티스3 입니다.</p>
+      <button
+        onClick={() => {
+          navigate(-1);
+        }}
+      >
+        뒤로가기
+      </button>
+      <button
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        홈으로
+      </button>
     </>
   );
 }
