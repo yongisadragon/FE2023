@@ -7,15 +7,26 @@ import {
   useLocation,
   Outlet,
   useParams,
+  NavLink,
 } from "react-router-dom";
 
 export default function RouteSolve() {
   const productIds = [1, 2, 3, 4, 5];
+
   return (
     //Route는 적절한 경로,길을 찾아주는 역할
     <BrowserRouter>
       <h1>퀴즈</h1>
-      <Link to="/">홈페이지</Link>
+
+      <NavLink
+        to="/"
+        style={({ isActive }) => ({
+          textDecoration: isActive ? "none" : undefined,
+          color: isActive ? "red" : "yellow",
+        })}
+      >
+        홈
+      </NavLink>
       {productIds.map((productId) => (
         <Link to={`/products/${productId}`}>상품{productId}</Link>
       ))}

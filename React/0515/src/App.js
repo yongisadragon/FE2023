@@ -12,8 +12,8 @@ function App() {
   return (
     <>
       {/* <RouteStudy /> */}
-      {/* <RouteSolve /> */}
-      <Counter />
+      <RouteSolve />
+      {/* <Counter /> */}
       {/* <Time /> */}
       {/* <Counter2 /> */}
       {/* <TryUseRefDom /> */}

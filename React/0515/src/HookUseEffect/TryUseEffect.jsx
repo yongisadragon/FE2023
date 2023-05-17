@@ -39,7 +39,3 @@ function Counter() {
   );
 }
 export default Counter;
-
-010 - 6619 - 7374;
-010 - 4618 - 1013;
-010 - 5578 - 5793;
