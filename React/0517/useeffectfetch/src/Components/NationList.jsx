@@ -17,6 +17,7 @@ const Item = styled.div`
   }
 `;
 
+//JSON 데이터를 가져와서 나라 목록을 렌더링하는 React 컴포넌트
 export default function NationList() {
   const [nations, setNations] = useState([]);
   const [url, setUrl] = useState("http://localhost:3000/nations");
@@ -76,7 +77,7 @@ export default function NationList() {
     <Item>
       <h2>나라 목록</h2>
       <ul>
-        {nations.map((nation) => {
+        {nations.map((nation, index) => {
           return (
             <li key={nation.id}>
               <h3>나라 이름 : {nation.title}</h3>
@@ -89,7 +90,7 @@ export default function NationList() {
         {/* 버튼 누를때마다 호출 url을 바꿔주는 작업 */}
         <button
           onClick={() => {
-            // 서버에게 질문을 던짐. loc이 europe인값들이있냐? 결과적으로, url값을 바꾸는 setUrl이 있기 때문에, useEffect안의 fetch(url)의 url을 바꾸게 된다.
+            // 서버에게 질문을 던짐. loc이 europe인값들이있냐? 버튼을 클릭할 때 setUrl을 호출하여 url 상태를 변경하는데, 이로써 useEffect의 의존성 배열에 있는 url이 변경되면 fetchData 함수가 실행되어 데이터를 다시 가져옵니다.
             setUrl("http://localhost:3000/nations?loc=europe");
           }}
         >
