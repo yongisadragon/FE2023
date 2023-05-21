@@ -1,6 +1,7 @@
 함수형 업데이트
 lazy initialization 
 clean up
+
 useEffect는 훅플로우 중 가장 나중에 실행된다.
 화면 렌더링이 완료된 후 혹은 어떤 값이 변경되었을 때 사이드 이펙트
 
@@ -14,7 +15,7 @@ React DOM Tree를 구성하기 위한 과정인 Render와 실제 브라우저에
 
 React에서는 특정 훅(예: useEffect, useState)과 같은 메커니즘을 제공하여 사이드 이펙트를 컴포넌트의 렌더링과 분리할 수 있도록 도와줍니다.
 
-useEffect는 렌더링이 끝나고 특정 행동을 수행하고, useLayoutEffect는 렌더링 전에 특정 행동을 수행해요. (레이아웃도 부하가 큰 작업이 포함돼 있으면 늦게 페인트 되므로 사용 지양)
+useEffect는 렌더링이 끝나고 특정 행동을 수행하고, useLayoutEffect는 렌더링 전에 특정 행동을 수행해요. (레이아웃도 부하가 큰 작업이 포함돼 있으면 브라우저 페인트가 지체될 수 있으므로 선택적으로 사용, 혹은 지양)
 
 재현님 질문 두가지만 드릴게요 ㅠㅠ
 1. 이펙트와 레이아웃 차이점 전반적인 것은 이해가 되었는데, 실행 되는 시점이 조금 헷갈려서요.. 유즈 이펙트는 렌더와 페인트 이후에 비동기로 작동한다고 설명하고 있고, 유즈 레이아웃 이펙트는 렌더이전에 동작한다고 했는데, 정확히는 렌더와 페인트의 사이에서 실행이 되는건가요? (교안의 표에 의하면)
@@ -25,4 +26,15 @@ useEffect는 렌더링이 끝나고 특정 행동을 수행하고, useLayoutEffe
 
 useEffect: 컴포넌트가 마운트될 때와 업데이트될 때 호출됩니다.
 Cleanup 함수: 업데이트되기 전에 호출되며, 컴포넌트가 언마운트될 때도 호출됩니다.
+
+좀더 자세하게 -> 
+
+  useEffect(() => {
+    // mount 시점, deps update 시점에 실행할 작업 (componentDidMount)
+    return () => {
+      //unmount 시점, deps update 직전에 실행할 작업 (componentWillUnmount)
+    };
+  }, [deps]);
+
+useEffect 자체가 함수형 컴포넌트에서도 클래스 컴포넌트의 생명주기 메서드를 사용할 수 있게 해주는 것이다. 따라서 useEffect에도 componentWillUnmount 메서드에 해당하는 기능이 있는데, 이것이 바로 clean-up 함수이다.
 

@@ -34,6 +34,7 @@ function App() {
 
   async function fetchImages() {
     setIsLoading(true);
+    // ?이하는 질문을 던지는 것임. limit=5은 한페이지에 보여질 이미지 갯수, page=페이지 넘버임. 초깃값은 1이고 setFetchPage에 의해 prevPage되어 1페이지 씩 늘어남, 근데 그것은 의존성 배열의 값 (deps)isBottomChecker에 의한것임.
     const url = `https://picsum.photos/v2/list?page=${fetchPage}&limit=5`;
     try {
       const response = await fetch(url);
