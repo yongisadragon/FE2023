@@ -10,7 +10,7 @@ export const substractNumber = () => {
 //reducer에는 액션의 타입에 따른 처리가 필요. action과 reducer가 한파일 안에 같이 배치를 해서 유지하기 편하게 함
 
 const initialState = {
-  stock: 100,
+  stock: 10,
   goods: 1,
 };
 
