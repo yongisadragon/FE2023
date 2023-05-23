@@ -115,7 +115,7 @@
 
     function item1() { //render 함수, 이 함수들이 state를 사용하려면 store의 메서드를 통해 값을 가져올 수 있음.
       const state = store.getState() //store에 있는 state가져오기
-      console.log(state);
+      console.log(state); //reducer안의
       const $item = document.querySelector('#item1');
       $item.textContent = `${state.text}`
       $item.style.borderRadius = `${state.borderRadius}`
