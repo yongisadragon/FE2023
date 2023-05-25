@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>title name</title>
+</head>
+
+<body>
+
+  <script>
+
+    class UltraArray {
+      //어레인데 왜 {}를 data로 시작? 어레이 만들어야 하니까 이안에 []를 쓰면 이상하잖아.
+      constructor() {
+        this.data = {};
+        this.length = 0;
+      }
+
+      //커스텀 메서드 만들기
+
+      myPop() {
+        const lastState = this.data[this.length - 1];
+        delete this.data[this.length - 1];
+        this.length -= 1;
+        return lastState;
+      }
+
+      myPush(item) {
+        //obj.1 = 'hello'(x) -> obj[1] = 'hello'
+        this.data[this.length] = item; // {0:item, 1:item, 2:item} 유사배열객체
+        this.length += 1; // 윗줄의 동작에 의해 요소가 하나 할당(추가)되었기 때문.
+        return this.length; //본래 push는 결과 배열의 길이를 반환한다ㅏ.
+      }
+
+      deleteWithIndex(index) {
+        const removedItem = this.data[index];
+        // delete this.data[index]; 이건 단순 원소 제거. 일반적으로 이것만 실행하게 되면 index 순서가 정리가 안된다.
+        this.changeOrderOfItems(index); // 이 함수를 추가해서 인덱싱 정리와 요소 정리 두가지 모두를 해야됨.
+        return removedItem;
+      }
+
+      changeOrderOfItems(index) {
+        //받아오는 인덱스부터 시작해 정리를 해봅니다. index의 값을 조절..
+        this.length--;
+
+        for (let i = index; i < this.length; i++) {
+          //for문은 선형시간(linear time)을 따른다.
+          //뒤에 있는 인덱스를 앞으로 당겨야 합니다.
+          // [0,1,2] ==> [0,2]
+          this.data[i] = this.data[i + 1];  // 우리가 삭제할 대상을 없애는게 아니라, 그 다음의 값을 넣어버리는 것임.
+        }
+        // 대상을 제거합니다.
+        delete this.data[this.length]; // 하나 씩 끌어왔기 때문에, 마지막 원소와 마지막 전 원소가 같아지기 때문에, 마지막 애를 없애줌.
+      }
+    }
+
+    const myArray = new UltraArray();
+
+    myArray.myPush(1)
+    myArray.myPush(2)
+    myArray.myPush(3)
+    myArray.myPush(4)
+    myArray.myPush(5)
+  </script>
+
+</body>
+
+</html>

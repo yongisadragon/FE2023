@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>title name</title>
+</head>
+
+<body>
+  <script>
+    //아래 SuperHash 클래스의 기능은 hashTable, 즉 객체 데이터에 데이터를 insertion(set), search(get) 등의 기능들을 '모사'하기 위함입니다.
+    class SuperHash {
+      constructor(size) {
+        this.data = new Array(size); //들어간 숫자대로 empty가 생기는 배열 생성
+
+      }
+      // 해쉬함수 hello
+      generateRandomHash(key) {
+        let hash = 0;
+
+        for (let i = 0; i < key.length; i++) { //key는 문자열
+          // 0 + 10 * 0
+          // 나머지 연산자는 일정한 숫자의 범위 안으로 값을 제한하는 특징이 있습니다. 예를 들어 for문의 i 값을 %로 해보면 일정 범위가 반복되는 것을 볼 수 있다.
+          hash = (hash + key.charCodeAt(i) * i) % this.data.length;
+        }
+        return hash;
+      }
+
+      // 값을 추가하는 함수 : insertion
+      set(key, value) {
+        // 값을 넣을 위치를 해쉬함수를 통해서 설정합니다.
+        const address = this.generateRandomHash(key);
+
+        // 기존 주소에 데이터가 없을 경우
+        if (!this.data[address]) { //this.data[address] 가 undefined일때 !로 인행 true가 되어 실행
+          this.data[address] = [];
+          // this.data[address].push([key, value]);
+
+          // 기존 주소에 데이터가 있을 경우
+        } else {
+          // 같은 키를 사용하는 데이터가 있을 경우 덮어씌웁니다.
+          /**
+          [
+            [
+              ['cat':'is cute'],['cat2':'is cute'],['cat3':'is cute']
+            ], 
+            [
+              ['dog':'is cool']
+            ], 
+            [
+              ['pig':'is smart']
+            ]
+          ]
+           */
+          console.log(this.data[address]);
+          for (let i = 0; i < this.data[address].length; i++) {
+            if (this.data[address][i][0] === key) {
+              this.data[address][i][1] = value; //[0]은 key, [1]은 value, 우항 value는 새로들어온 value
+              return value; //return을 만나면 함수자체가 종료
+            }
+          }
+
+          // 같은 키를 사용하는 데이터가 없을 경우 list에 데이터를 추가합니다.
+          // this.data[address].push([key, value]);
+          // return value;
+        }
+
+        this.data[address].push([key, value]);
+        return value; //본래 set 기능은, 객체에 키벨류를 할당했을 때, 벨류값을 리턴해서 보여줌
+      }
+
+      // search 를 구현해봅니다.
+      get(key) {
+        const address = this.generateRandomHash(key);
+        const targetElement = this.data[address];
+        /**
+    [
+      [
+        ['cat':'is cute'],['cat2':'is cute'],['cat3':'is cute']
+      ], 
+      [
+        ['dog':'is cool']
+      ], 
+      [
+        ['pig':'is smart']
+      ]
+    ]
+     */
+        if (targetElement) { //여기서 targetElement란, [cat~cute]의 한 뭉텅이
+          for (let i = 0; i < targetElement.length; i++) {
+            // 찾고자 하는 대상의 key와 내가 전달한 key가 일치하는지 확인합니다.
+            if (targetElement[i][0] === key) { //targetElement[i][0]은 각 i번째의 키값 cat, dog..
+              return targetElement[i][1] //키와 벨류는 쌍이므로 [1]은 값이됨..
+            }
+          }
+        }
+      }
+
+      // 모든 키 값을 배열로 반환합니다.
+      //본래 keys()란, 키값들만 뽑아내는 기능임.
+      keys() {
+        const keyArray = [];
+        // 우선 해쉬테이블안의 모든 데이터를 순회합니다.
+        for (let i = 0; i < this.data.length; i++) {
+          if (this.data[i]) {
+            //경우1. link list(덮여진 리스트)가 존재한다면(한 길이에 배열 뭉터기가 2개이상)
+            if (this.data[i].length > 1) {
+              for (let j = 0; j < this.data[i].length; j++) {
+                keyArray.push(this.data[i][j][0])
+              }
+              //경우2. link list가 아니라면, 단일 키값 배열 한 뭉터기
+            } else {
+              keyArray.push(this.data[i][0][0]);
+            }
+          }
+        }
+        return keyArray;
+      }
+    }
+
+    const myHash = new SuperHash(3);
+    myHash.set('dog', 'is cute');
+    myHash.set('cat', 'is small');
+    myHash.set('pig', 'is fat');
+    myHash.set('yong', 'is super');
+  </script>
+</body>
+
+</html>

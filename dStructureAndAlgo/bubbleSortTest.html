@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>title name</title>
+</head>
+
+<body>
+  <script>
+    // 이 문제는 실제로 입사문제로 사용되던 알고리즘
+    // 배열이 하나 주어졌을때 [3,2,4,5,2,1,0,3];
+    // 함수를 만듭니다. 가장 먼저 반복되는 원소의 값을 반환합니다.
+
+
+    let arr = [3, 2, 4, 5, 2, 0, 3, 2]
+
+    // 이중 포문의 경우, 빅오 O(N^2)에 해당되기 때문에 좋지 않다. 또한 3,3 반복보다 2,2반복이 더 빠르지만 로직 설계상 3을 반환한다. (사실상 정답을 반환하지 않음)
+    function test(test) {
+      for (let i = 0; i < arr.length; i++) { // 첫번째 for문은 앞부분 비교값 순회,
+        for (let j = i + 1; j < arr.length; j++) { //두번째 for문은 앞부분 비교값 그 뒤의 값이기 때문에 초기값 i+1로 설정
+          console.log(arr[i], arr[j]);
+          if (arr[i] === arr[j]) { //운이좋다면 찾겠지
+            return arr[i]
+          }
+        }
+      }
+      return undefined;
+    }
+
+    // [3, 2, 4, 5, 2, 0, 3, 2]
+    // 해쉬테이블은 key를 등록했을 때 원하는 키를 조회할 수 있기 때문에, if문 안에서 key를 사용한 적이 있는지 없는지 여부를 묻는 해쉬테이블의 장점을 이용한 방식.
+    function test2(arr) {
+      const useHash = {};
+      for (let i = 0; i < arr.length; i++) {
+        if (useHash[arr[i]]) { //단순 키값 조회
+          return arr[i]
+        } else {
+          // 해쉬테이블의 키로 arr의 원소를 차례로 등록
+          // {3:0}
+          useHash[arr[i]] = i;
+        }
+      }
+    }
+
+    function test3(arr) {
+      const makeSet = new Set();
+      for (let i = 0; i < arr.length; i++) {
+        console.log(makeSet); //과정 확인
+        if (makeSet.has(arr[i])) {
+          return arr[i]
+        } else {
+          makeSet.add(arr[i]);
+        }
+      }
+      return undefined;
+    }
+
+
+
+
+    // function commonEl(arr) {
+    //   for (let i = 0; i < arr.length - 1; i++) {
+    //     for (let j = 0; j < arr.length - 1; j++) {
+    //       if (arr[j] > arr[j + 1]) {
+    //         [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]]
+    //       }
+    //     }
+    //     console.log(arr);
+    //     for (let k = 0; k < arr.length - 1; k++) {
+    //       if (arr[k] === arr[k + 1]) {
+    //         return arr[k]
+    //       }
+    //     }
+    //   }
+    // }
+
+
+
+  </script>
+</body>
+
+</html>

@@ -90,7 +90,7 @@
 
   <script>
     function reducer(state, action) { //reducer가 받는 2가지 인자. action은 state변경을 위한 주문서
-      if (state === undefined) { //state 초깃값 설정.
+      if (state === undefined) { //state 초깃값 설정. return 이하는 새로운 state값이 된다.
         return {
           text: 'hello',
           border: "5px solid #f6866a",

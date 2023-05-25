@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>title name</title>
+</head>
+
+<body>
+  <script>
+    //'안녕하세요' --> '요세하녕안'
+    // 이건 내풀이
+    // function reverseStr(str) {
+    //   let rvsStr = '';
+    //   for (let i = str.length - 1; i >= 0; i--) {
+    //     rvsStr += str[i];
+    //   }
+    //   return rvsStr;
+    // }
+
+    function reverseStr(str) {
+      //str 예외 처리 
+      if (str.length < 2 || typeof str !== 'string') {
+        return '문자열 2글자 이상 넣어주셈'
+      }
+
+      const data = [];
+      const lastIndex = str.length - 1;
+
+      for (let i = lastIndex; i >= 0; i--) {
+        data.push(str[i])
+      }
+    }
+
+    // 📌for ..of + unshift
+    // function reverseStr(str) {
+    //   const s = new Array;
+    //   for (i of str.split('')) {
+    //     s.unshift(i)
+    //   }
+    //   return s.join('')
+    // }
+
+    // console.log(reverseStr('안녕하세요'));
+
+    // 📌for ..of + 앞에 더해줌
+    // function reverseStr(str) {
+    //   let answer = '';
+    //   for (const v of str) {
+    //     answer = v + answer;
+    //   }
+    //   return answer;
+    // }
+
+  </script>
+</body>
+
+</html>
