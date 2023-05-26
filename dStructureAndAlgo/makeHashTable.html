@@ -22,8 +22,9 @@
 
         for (let i = 0; i < key.length; i++) { //key는 문자열
           // 0 + 10 * 0
-          // 나머지 연산자는 일정한 숫자의 범위 안으로 값을 제한하는 특징이 있습니다. 예를 들어 for문의 i 값을 %로 해보면 일정 범위가 반복되는 것을 볼 수 있다.
-          hash = (hash + key.charCodeAt(i) * i) % this.data.length;
+          // 나머지 연산자는 일정한 숫자의 범위 안으로 값을 제한하는 특징이 있습니다. 예를 들어 for문의 i 값을 %로 해보면 일정 범위가 반복되는 것을 볼 수 있다.(해당 코드에서는 this.data.length 입력된 배열의 길이)
+          // charCodeAt() 메서드는 주어진 인덱스에 대한 UTF-16 코드를 나타내는 0부터 65535 사이의 정수를 반환
+          hash = (hash + key.charCodeAt(i) * i) % this.data.length; //초기 size(3)할당 했으니 hash는 0,1,2 범위
         }
         return hash;
       }
@@ -31,10 +32,9 @@
       // 값을 추가하는 함수 : insertion
       set(key, value) {
         // 값을 넣을 위치를 해쉬함수를 통해서 설정합니다.
-        const address = this.generateRandomHash(key);
-
+        const address = this.generateRandomHash(key); // 0,1,2
         // 기존 주소에 데이터가 없을 경우
-        if (!this.data[address]) { //this.data[address] 가 undefined일때 !로 인행 true가 되어 실행
+        if (!this.data[address]) { //this.data[address] 가 undefined일때 !로 인행 true가 되어 실행 //key가 있어야만 작동, 즉 key에 의해 할당되는 배열이 없다면, 빈 배열로
           this.data[address] = [];
           // this.data[address].push([key, value]);
 
@@ -68,7 +68,7 @@
         }
 
         this.data[address].push([key, value]);
-        return value; //본래 set 기능은, 객체에 키벨류를 할당했을 때, 벨류값을 리턴해서 보여줌
+        return value; //본래 set 기능은, 객체에 키벨류를 할당했을 때, 벨류값을 리턴해서 보여줌, 여기 return value는 else를 거치지 않는 value
       }
 
       // search 를 구현해봅니다.
