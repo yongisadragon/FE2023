@@ -12,10 +12,10 @@ function App() {
   return (
     <>
       {/* <RouteStudy /> */}
-      <RouteSolve />
+      {/* <RouteSolve /> */}
       {/* <Counter /> */}
       {/* <Time /> */}
-      {/* <Counter2 /> */}
+      <Counter2 />
       {/* <TryUseRefDom /> */}
       {/* <TryUseMemo /> */}
     </>
