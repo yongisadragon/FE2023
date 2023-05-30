@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>title name</title>
+</head>
+
+<body>
+  <script>
+    let myArr = [10, 9, 8, 5, 6, 1, 3, 4, 2, 1];
+    function quickSort([...arr]) {
+      // 섹션의 길이가 1이거나, 1보다 작을 경우 파티셔닝을 종료합니다.
+      if (arr.length <= 1) {
+        return arr;
+      }
+      // 중심 인덱스 pivotIndex
+      let pivotIndex = Math.floor(arr.length / 2);
+      // 중심 인덱스 값(pivotValue)을 splice로 추출
+      // splice는 배열로 반환해주기 때문에 [0]으로 확인
+      // console.log(pivotValue[0]);
+      let pivotValue = arr.splice(pivotIndex, 1)[0];
+
+      // 파티셔닝
+      const leftSection = [];
+      const rightSection = [];
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i] < pivotValue) {
+          leftSection.push(arr[i]);
+        } else {
+          rightSection.push(arr[i]);
+        }
+      }
+      console.log('leftSection:' + leftSection);
+      console.log('rightSection:' + rightSection);
+
+      // 각 섹션의(배열)길이가 1보다 작을 때 종료돼야함.
+      return quickSort(leftSection).concat([pivotValue], quickSort(rightSection))
+    }
+    console.log(quickSort(myArr));
+
+    // 다음에 주어지는 나라 이름을 길이에 따라 짧은 이름을 앞으로, 긴 이름을 뒤로 정렬하여보시길 바랍니다.
+    // const countries = ["USA", "Australia", "Canada", "Germany", "Japan", "Brazil"];
+    // function quickSort2([...countries]) {
+    //   if (countries.length <= 1) {
+    //     return countries
+    //   }
+
+    //   let pivotIndex = Math.floor(countries.length / 2);
+    //   let pivotValue = countries.splice(pivotIndex, 1)[0];
+    //   const leftSection = [];
+    //   const rightSection = [];
+    //   for (let i = 0; i < countries.length; i++) {
+    //     if (countries[i].length < pivotValue.length) {
+    //       leftSection.push(countries[i])
+    //     } else {
+    //       rightSection.push(countries[i])
+    //     }
+    //   }
+    //   console.log('leftSection:' + leftSection);
+    //   console.log('rightSection:' + rightSection);
+
+    //   return quickSort2(leftSection).concat([pivotValue], quickSort2(rightSection))
+
+    // }
+    // console.log(quickSort2(countries));
+
+  </script>
+</body>
+
+</html>

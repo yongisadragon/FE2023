@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>title name</title>
+</head>
+
+<body>
+  <script>
+    const foods = [
+      { cookingTime: 10, deliveryTime: 15 },
+      { cookingTime: 12, deliveryTime: 13 },
+      { cookingTime: 3, deliveryTime: 5 },
+      { cookingTime: 15, deliveryTime: 20 },
+      { cookingTime: 7, deliveryTime: 7 },
+    ]
+
+    //버블정렬로 풀어보기
+    function bubbleSort([...foods]) {
+      for (let i = 0; i < foods.length - 1; i++) {
+        let isSorted = true;
+        for (let j = 0; j < foods.length - 1; j++) {
+          const timeOne = foods[j].cookingTime + foods[j].deliveryTime;
+          const timeTwo = foods[j + 1].cookingTime + foods[j + 1].deliveryTime;
+
+          if (timeTwo < timeOne) {
+            [foods[j], foods[j + 1]] = [foods[j + 1], foods[j]]
+            isSorted = false;
+            //false인 동안(뒷 값이 앞 값보다 작아서 정렬이 되어야 하는 경우) 반복
+          }
+        }
+        if (isSorted) break;
+      }
+      return foods
+    }
+    // console.log(bubbleSort(foods));
+
+    //선택정렬로 풀어보기
+    function selectionSort([...foods]) {
+      for (let i = 0; i < foods.length; i++) {
+        let minimumIndex = i;
+
+        for (let j = i + 1; j < foods.length; j++) {
+          const timeOne = foods[j].cookingTime + foods[j].deliveryTime;
+          const timeTwo = foods[minimumIndex].cookingTime + foods[minimumIndex].deliveryTime;
+
+          if (timeOne < timeTwo) {
+            minimumIndex = j
+          }
+        }
+        if (minimumIndex !== i) {
+          [foods[i], foods[minimumIndex]] = [foods[minimumIndex], foods[i]]
+        }
+      }
+      return foods
+    }
+    // console.log(selectionSort(foods));
+
+    //삽입정렬로 풀어보기
+    function insertionSort([...foods]) {
+      for (let i = 1; i < foods.length; i++) {
+        for (let j = i; j > 0 && (foods[j].cookingTime + foods[j].deliveryTime) < (foods[j - 1].cookingTime + foods[j - 1].deliveryTime); j--) {
+          [foods[j], foods[j - 1]] = [foods[j - 1], foods[j]];
+        }
+      }
+      return foods;
+    }
+    console.log(insertionSort(foods));
+
+  </script>
+</body>
+
+</html>
