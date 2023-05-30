@@ -1,0 +1,1 @@
+webpack을 사용하기전에 반드시 entry, output, mode 이 세가지 옵션은 번들링 시 필수적으로 설정해야합니다.
