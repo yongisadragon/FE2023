@@ -2,6 +2,8 @@
 
 # dependencies
 /node_modules
+# 그리고 dist안에 github으로 관리필요없는 애들. 빌드하면 나오는 애들은 다 뺴야함.
+dist/*
 /.pnp
 .pnp.js
 

@@ -1,5 +1,5 @@
-import React from "react";
-import { UserInfo } from "./AppConsumer";
+import React from 'react';
+import { UserInfo } from './AppConsumer';
 
 export default function HelloLicat() {
   return (
