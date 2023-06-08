@@ -4,6 +4,7 @@ const childProcess = require("child_process");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 require("dotenv").config();
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 
 module.exports = {
   // mode: process.env.NODE_ENV 조건식을 만족하기 위해 패키지 제이슨에 build, build:pro추가해줌.
@@ -62,5 +63,20 @@ module.exports = {
       template: "./src/index.html" // 목표 html 파일의 위치입니다.
     }),
     new CleanWebpackPlugin()
-  ]
+  ],
+  optimization: {
+    // 웹팩의 최적화 활성화 옵션.
+    minimize: true,
+    minimizer: [
+      new ImageMinimizerPlugin({
+        test: /\.(png|jpg|gif|svg)$/,
+        minimizer: {
+          implementation: ImageMinimizerPlugin.imageminMinify,
+          options: {
+            plugins: [["imagemin-optipng", { optimizationLevel: 1 }]]
+          }
+        }
+      })
+    ]
+  }
 };

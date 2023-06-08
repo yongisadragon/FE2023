@@ -1,0 +1,17 @@
+header {
+  background-color: white;
+}
+
+.header-wrap {
+  width: 1224px;
+  height: 120px;
+  /* 진짜 calc에 띄어쓰기 하자 ㅡㅡ; */
+  max-width: calc(100% - 60px);
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo {
+  height: 75px;
+}
