@@ -44,7 +44,7 @@ const storeReducer = (state, action) => {
 export const useFirestore = (transaction) => {
   const [response, dispatch] = useReducer(storeReducer, initState);
 
-  //collection 함수가 실행되면 인자로 전달하는transaction, colRef는 특정 컬렉션의 참조를 반환한다. ()
+  //collection 함수가 실행되면 인자로 전달하는transaction, colRef는 특정 컬렉션의 참조를 반환한다. data -> document -> cllection의 위계를 가진다.
   const colRef = collection(appFireStore, transaction);
 
   const addDocument = async (doc) => {

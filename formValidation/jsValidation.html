@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>title name</title>
+  </head>
+  <body>
+    <form>
+      <input type="number" required min="3" />
+      <input type="email" required />
+      <input type="text" required minlength="5" />
+      <button>제출</button>
+    </form>
+    <script>
+      const inp = document.querySelector("input");
+      inp.setCustomValidity("아무래도 이상해..");
+      inp.setCustomValidity(""); //이렇게 입력하면 그냥 넘어감.
+      // validity는 ValidityState객체를 반환해 각각의 상태의 유효성 t/f을 알려줌.
+      // const inp = document.querySelector("input");
+      // inp.forEach((inp) => {
+      //   inp.addEventListener("input", () => {
+      //     console.log(inp.validity);
+      //   });
+      // });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Documnet</title>
+    <style>
+      input:required {
+        border: 3px solid green;
+      }
+
+      /* 올바르지 못한 입력을 받으면 스타일이 작동됩니다. */
+      input:invalid {
+        border: 3px solid red;
+      }
+
+      input:valid {
+        border: 3px solid blue;
+      }
+
+      /* 조건이 2가지 */
+      input:required:invalid {
+        background-color: aquamarine;
+      }
+    </style>
+  </head>
+  <body>
+    <form action="">
+      <label for="stuff">원하는 수량을 입력하세요 : </label>
+      <input id="stuff" type="number" min="3" max="10" />
+
+      <label for="stuff2">이메일을 입력하세요 : </label>
+      <input id="stuff2" type="email" required minlength="10" maxlength="20" />
+      <button>제출</button>
+    </form>
+  </body>
+</html>
+
+<!-- 프론트엔드에서 벨리데이션이 불가능한 경우 - 서버에서만 처리해야되는 경우들이 있겠다.. html(native)단에서 벨리데이션을 처리하는 것으로는 input type, required등이 있따.. -->
