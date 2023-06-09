@@ -165,7 +165,7 @@ const Login = () => {
             </defs>
           </svg>
 
-          <strong className="line">로그인</strong>
+          <strong className="line">로그인중일수도..</strong>
         </h2>
 
         <form className={styles["form-wrap"]} onSubmit={handleSubmit}>

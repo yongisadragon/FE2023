@@ -1,4 +1,4 @@
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, deleteDoc, doc } from "firebase/firestore";
 import { useReducer } from "react";
 import { appFireStore, Timestamp } from "../firebase/config";
 
@@ -44,7 +44,7 @@ const storeReducer = (state, action) => {
 export const useFirestore = (transaction) => {
   const [response, dispatch] = useReducer(storeReducer, initState);
 
-  //collection 함수가 실행되면 인자로 전달하는transaction, 특정 컬렉션의 참조를 반환한다.
+  //collection 함수가 실행되면 인자로 전달하는transaction, colRef는 특정 컬렉션의 참조를 반환한다. ()
   const colRef = collection(appFireStore, transaction);
 
   const addDocument = async (doc) => {
@@ -58,7 +58,16 @@ export const useFirestore = (transaction) => {
     }
   };
 
-  const deleteDocument = (id) => {};
+  const deleteDocument = async (id) => {
+    //dispatch 함수는 action 객체를 받아와서 해당 action에 따라 상태를 업데이트하는 역할을 합니다.payload는 action이 수행될 때 필요한 데이터를 담고 있으며, reducer 함수에서 이 데이터를 활용하여 상태를 업데이트할 수 있습니다.
+    dispatch({ type: "pending" });
+    try {
+      const docRef = await deleteDoc(doc(colRef, id));
+      dispatch({ type: "deleteDoc", payload: docRef });
+    } catch (error) {
+      dispatch({ type: "error", payload: error.message });
+    }
+  };
 
   return { addDocument, deleteDocument, response };
 };

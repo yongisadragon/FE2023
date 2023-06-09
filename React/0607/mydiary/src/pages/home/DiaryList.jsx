@@ -2,25 +2,50 @@ import React from "react";
 import iconEdit from "../../img/icon-edit.svg";
 import iconDelete from "../../img/icon-delete.svg";
 import styles from "./Home.module.css";
+import { useFirestore } from "../../hooks/useFirestore";
 
 export default function DiaryList({ diaries }) {
+  function formattingTime(seconds) {
+    //ms로 넣어주기 위해 *1000
+    const date = new Date(seconds * 1000);
+    console.log(date);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+    const dayName = days[date.getDay()]; //getDay에서 0은 일요일
+    return `${year}.${month}.${day}.${dayName}`;
+  }
+
+  const { deleteDocument } = useFirestore("secretDiary");
+
   return diaries.map((item) => {
     console.log(item);
     return (
       <li key={item.id}>
         <article className={styles["diary-article"]}>
           <h3 className={styles["article-title"]}>{item.title}</h3>
-          <time className={styles["article-time"]} dateTime="2023-03-15">
-            2023.02.24.THU
+          <time
+            className={styles["article-time"]}
+            dateTime={formattingTime(item.createTime.seconds)
+              .replaceAll(".", "-")
+              .slice(0, -4)}
+          >
+            {formattingTime(item.createTime.seconds)}
           </time>
           <p className={styles["article-content"]}>{item.text}</p>
 
-          <div className="button-group">
+          <div className={styles["button-group"]}>
             <button type="button">
               <img src={iconEdit} alt="수정" />
             </button>
             <span></span>
-            <button type="button">
+            <button
+              type="button"
+              onClick={() => {
+                deleteDocument(item.id);
+              }}
+            >
               <img src={iconDelete} alt="삭제" />
             </button>
           </div>
