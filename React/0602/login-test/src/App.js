@@ -48,7 +48,7 @@ function App() {
     } else {
       setNotAllow(true);
     }
-  }, [emailValid, pwValid]); //emailValid, pwValid 얘네가 변화가 생길때 마다 버튼 활성화 여부 Effect를 체크해주게 됨.
+  }, [emailValid, pwValid]); //emailValid, pwValid 얘네가 변화가 생길때 마다 버튼 활성화 여부 Effect를 체크
 
   const onClickConfirmButton = () => {
     if (email === User.email && pw === User.password) {
