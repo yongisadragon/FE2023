@@ -3,7 +3,7 @@ import Login from "./Login";
 
 const User = {
   email: "yong@gmail.com",
-  password: "zz123123^^",
+  password: "zz123123^^"
 };
 
 function App() {
