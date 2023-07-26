@@ -1,0 +1,5 @@
+// 바벨은 jsx를 js로 변환해준다!
+// npm run~ 은 직접 만든 명령어를 실행할때.
+{
+  "presets": ["@babel/preset-react"]
+}

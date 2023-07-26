@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>document</title>
+  </head>
+  <body>
+    <!-- 실제 dom을 직졉 그려보자. -->
+    <h1>hello react clone!</h1>
+    <div id="root"></div>
+    <!-- build 폴더안의 npm run build를 마친 index.js파일을 연결시키자. -->
+    <!-- ul,li등의 요소를 정보화해서 리액트에서 사용하려면.? 객체지향->실재하는것을 추상화하는것. 과정이 필요(virtual DOM),html요소들을 옮기려면 어떤 정보가 필요한가? 태그네임, 프로퍼티, 해당하는 키와 값, 하위노드 등등 .. -->
+    <!-- <ul>
+      <li>강아지</li>
+      <li>고양이</li>
+      <li>거북이</li>
+    </ul> -->
+
+    <script>
+      const tag = {
+        tag: "ul",
+        props: {
+          className: "list",
+        },
+        children: [
+          // ...tag, props, children 등이 들어가겠지
+          {
+            tag: "ul",
+            props: {},
+            children: ["강아지"],
+          },
+          {
+            tag: "ul",
+            props: {},
+            children: ["고양이"],
+          },
+          {
+            tag: "ul",
+            props: {},
+            children: ["거북이"],
+          },
+        ],
+      };
+    </script>
+
+    <script src="index.js" type="module"></script>
+  </body>
+</html>
